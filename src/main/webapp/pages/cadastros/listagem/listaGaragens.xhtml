@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <div class="box-body">
+                <c:if test="${garagemControle.usuarioAdmin}">
+                    <div class="form-group">
+                        <h:selectOneMenu id="filtros" value="#{garagemControle.visao.valorSelecionado}" valueChangeListener="#{garagemControle.fireSelection}" class="form-control" >
+                            <f:selectItem itemLabel="Filtros" itemValue="" />
+                            <f:selectItems value="#{garagemControle.visao.campos}" />
+                            <f:ajax execute="@this" event="change" immediate="true" render="campoPesquisa"/>
+                        </h:selectOneMenu>
+                        <h:inputText id="campoPesquisa" disabled="#{garagemControle.visao.valorSelecionado eq '' or garagemControle.visao.valorSelecionado eq null}" class="form-control" value="#{usuarioControle.visao.valorPesquisa}" pt:placeholder="Digite para pesquisar">
+                            <f:ajax event="keyup" listener="#{garagemControle.pesquisar()}" rendered="todosTabela" execute="@this"/>
+                        </h:inputText>                        
+                    </div>
+                </c:if>
+                <h:dataTable id="todosTabela" value="#{garagemControle.todosGaragems}" var="garagem" class="table table-bordered table-striped">
+                    <h:column>
+                        <!-- column header -->
+                        <f:facet name="header">Numero</f:facet>
+                        <!-- row record -->
+                        #{garagem.numero}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Titular</f:facet>
+                            #{garagem.titular.nome}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Tipo cobertura</f:facet>
+                            #{garagem.cobertura.tipo}
+                    </h:column>
+
+                    <h:column class="align-center">
+                        <f:facet name="header">Ações</f:facet>
+                        <h:commandLink id="editarSelecionado" action="#{garagemControle.editar()}" onclick="irParaCadastro();" class="label label-primary">
+                            <f:param name="editar" value="#{garagem.idGaragem}" />
+                            <i class="fa fa-edit"></i>
+                            <f:ajax execute="@this" render=":formCadastros"/>
+                        </h:commandLink>
+                        <h:commandLink id="excluirSelecionado" action="#{garagemControle.excluir()}" class="label label-danger" >
+                            <f:param name="excluir" value="#{garagem.idGaragem}" />
+                            <i class="fa fa-trash"></i>
+                            <f:ajax execute="@this" render="@form"/>
+                        </h:commandLink>                                    
+                    </h:column>
+
+                </h:dataTable>
+            </div>
+        </ui:composition>
+    </h:body>
+</html>
+

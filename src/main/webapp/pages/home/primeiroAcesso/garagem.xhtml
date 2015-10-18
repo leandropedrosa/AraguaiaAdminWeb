@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formGaragem">   
+                <h:commandLink class="btn btn-block btn-social btn-danger" immediate="true" action="#{primeiroAcessoControle.doAvancar()}" rendered="#{!empty  primeiroAcessoControle.visao.todosGaragens}">
+                    <f:param name="etapasId" value="veiculo" />
+                    <i class="fa fa-arrow-right"></i> Clique aqui para avançar
+                </h:commandLink>
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="numGaragem">Número da Garagem:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                            <h:selectOneMenu id="numGaragem"  value="#{primeiroAcessoControle.visao.garagem.numero}" required="true" requiredMessage="Campo obrigatório" class="form-control" >
+                                <f:selectItem itemLabel="Selecione o Numero" itemValue="" />
+                                <f:selectItems value="#{primeiroAcessoControle.visao.listaDeNumeros}"/>
+                            </h:selectOneMenu>
+                            <h:messages class="fa fa-arrow-up" for="numGaragem" showDetail="false" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>                              
+                        </div>                                            
+                    </div>              
+                    <div class="form-group">
+                        <label for="tipoCobertura">Informe o tipo de cobertura</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                            <h:selectOneMenu id="tipoCobertura" class="form-control" value="#{primeiroAcessoControle.visao.garagem.cobertura.tipo}" required="true" requiredMessage="Campo obrigatório">
+                                <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Coberta (Abaixo da área de lazer)" itemValue="A" />
+                                <f:selectItem itemLabel="Coberta paga" itemValue="C" />            
+                                <f:selectItem itemLabel="Não coberta" itemValue="N" />   
+                            </h:selectOneMenu>
+                        </div>
+                        <h:messages class="fa fa-arrow-up" for="tipoCobertura" showDetail="false" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>  
+                    </div>  
+                </div><!-- /.box-body -->
+                <div class='timeline-footer'>
+                    <div class="col-md-3">
+                        <h:commandLink class="btn btn-block btn-social btn-dropbox" action="#{primeiroAcessoControle.doIncluirGaragem()}">
+                            <i class="fa fa-arrow-right"></i> Clique aqui para incluir
+                        </h:commandLink>
+                    </div>
+                    <div class="col-md-9">
+                        <h:dataTable id="todosTabela" value="#{primeiroAcessoControle.visao.todosGaragens}" var="garagem" class="table table-bordered table-striped">
+                            <h:column>
+                                <!-- column header -->
+                                <f:facet name="header">Numero</f:facet>
+                                <!-- row record -->
+                                #{garagem.numero}
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Tipo cobertura</f:facet>
+                                <h:outputText value="#{garagem.cobertura.tipo eq 'A' ? 'Coberta (Abaixo da área de lazer)': (garagem.cobertura.tipo eq 'C' ? 'Coberta paga':'Não coberta')}"/>  
+
+                            </h:column>
+
+                            <h:column class="align-center">
+                                <f:facet name="header">Excluir</f:facet>
+                                <h:commandLink id="excluirSelecionado" action="#{primeiroAcessoControle.doExcluirGaragem()}" class="label label-danger" >
+                                    <f:param name="excluirGa" value="#{garagem.numero}" />
+                                    <i class="fa fa-trash"></i>
+                                    <f:ajax execute="@this" render="@form"/>
+                                </h:commandLink>                                    
+                            </h:column>
+
+                        </h:dataTable>
+                    </div>
+                </div>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>
+

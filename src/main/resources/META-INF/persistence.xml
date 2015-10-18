@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.1" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="AraguaiaPU" transaction-type="JTA">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <jta-data-source>araguaia</jta-data-source> 
+        <class>modelo.Apartamento</class>
+        <class>modelo.Bloco</class>
+        <class>modelo.Cobertura</class>
+        <class>modelo.Condominio</class>
+        <class>modelo.Dependente</class>
+        <class>modelo.Diarista</class>
+        <class>modelo.Encomenda</class>
+        <class>modelo.Garagem</class>
+        <class>modelo.Imobiliaria</class>
+        <class>modelo.Movimentacao</class>
+        <class>modelo.Negociacao</class>
+        <class>modelo.Permissao</class>
+        <class>modelo.Porteiro</class>
+        <class>modelo.Solicitacao</class>
+        <class>modelo.Telefone</class>
+        <class>modelo.Titular</class>
+        <class>modelo.Usuario</class>
+        <class>modelo.Veiculo</class>
+        <class>modelo.Visitantes</class>
+        <class>modelo.Zelador</class>
+        <properties>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.ejb.cfgfile" value="hibernate.cfg.xml"/>
+            <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+            <property name="hibernate.show_sql" value="true"/>
+        </properties>
+       <!-- <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/araguaia" />
+            <property name="javax.persistence.jdbc.user" value="root" />
+            <property name="javax.persistence.jdbc.password" value="root" />
+ 
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="false" />
+            <property name="hibernate.use_sql_comments" value="false" />
+            <property name="hibernate.jdbc.wrap_result_sets" value="false" />
+            <property name="hibernate.hibernate.cache.use_query_cache" value="true" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+        </properties>-->
+    </persistence-unit>
+</persistence>

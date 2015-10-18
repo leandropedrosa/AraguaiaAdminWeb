@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="../template/common/templateLogin.xhtml">
+            <ui:define name="body" >
+                <h:form id="fileUploadForm" target="uploadTarget" enctype="multipart/form-data">                    
+                    <div class="login-box">
+                        <div class="login-logo">
+                            <img src="#{facesContext.externalContext.requestContextPath}/resources/dist/img/logo.png" class="img-rounded"/>
+                        </div><!-- /.login-logo -->
+                        <div class="login-box-body">  
+                            <!--<h:messages showSummary="true" showDetail="true" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>  -->
+                            <p class="login-box-msg">#{texto.loginDetalhes}</p>
+                            <div class="form-group">
+                                <label for="registrarEmail">#{texto.registrarEnderecoEmail}</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                    <h:inputText id="registrarEmail" class="form-control" value="#{usuarioControle.visao.usuario.email}" required="true" requiredMessage="Informe o email" pt:placeholder="E-mail"/>
+                                </div>                                            
+                                <p:message for="registrarEmail" />
+                            </div>
+                            <div class="form-group">
+                                <label for="registrarNome">#{texto.registrarNome}</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <h:inputText id="registrarNome" class="form-control" value="#{usuarioControle.visao.usuario.nome}" required="true" requiredMessage="Informe o Nome" pt:placeholder="Nome"/>                                    
+                                </div>                                            
+                                <p:message for="registrarNome" />
+                            </div>
+                            <div class="form-group">
+                                <label for="registrarCpf">#{texto.novaSenhaCpfTitular}</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <p:inputMask id="novaSenhaCpf" class="form-control input-mask-cpf" value="#{usuarioControle.visao.usuario.cpf}" required="true" requiredMessage="Informe o login" pt:placeholder="CPF" mask="999.999.999-99"/>                                    
+                                </div>                                            
+                                <p:message for="registrarCpf" />
+                            </div>
+                            <div class="form-group">
+                                <label for="registrarPassword">#{texto.registrarSenha}</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                    <h:inputSecret id="registrarPassword" value="#{usuarioControle.visao.usuario.senha}" required="true" requiredMessage="Informe a senha" class="form-control" pt:placeholder="#{texto.registrarSuaSenha}"/>                                      
+                                </div>                                              
+                                <p:message for="registrarPassword" />
+                            </div>
+                            <div class="form-group">
+                                <label for="registrarPassword2">#{texto.registrarConfirmarSenha}</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                    <h:inputSecret id="registrarPassword2" class="form-control" value="#{usuarioControle.visao.usuario.senhaConfirmacao}" pt:placeholder="#{texto.registrarRepitaSenha}" required="true" requiredMessage="Confirme a senha" />                                    
+                                </div>                                             
+                                <p:message for="registrarPassword2" />
+                            </div>
+                        </div><!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <h:commandLink class="btn btn-app" actionListener="#{usuarioControle.salvarUsuarioInicial()}">
+                                <i class="fa fa-save"></i> #{texto.salvar}
+                            </h:commandLink> 
+                            <h:commandLink class="btn btn-app" action="#{linksControle.showPage()}">
+                                <i class="fa fa-mail-forward"></i> #{texto.novaSenhaVoltarLogin}
+                                <f:ajax execute="@this"/>
+                                <f:param name="pageId" value="login/login" />
+                            </h:commandLink>             
+                        </div>                   
+                    </div><!-- /.login-box-body -->
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

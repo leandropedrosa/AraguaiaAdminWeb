@@ -1,0 +1,60 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 07/03/2015, 01:00:34
+    Author     : Leandro
+*/
+
+.ui-growl {
+    padding-left: 20px;
+    padding-top: 100px;
+}
+
+.ui-autocomplete {
+    display: inline;
+    position: relative;
+    width: auto;
+    zoom: 1;
+    cursor: pointer;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.ui-autocomplete .ui-autocomplete-panel {
+    position: absolute;
+    margin-left: -1px;
+    overflow: auto;
+    width: 100%;
+}
+
+.ui-autocomplete .ui-autocomplete-panel .ui-autocomplete-list {
+    padding: 0.4em;
+    border: 0 none;
+}
+
+.ui-autocomplete .ui-autocomplete-panel .ui-autocomplete-list-item {
+    border:0px none;
+    cursor:pointer;
+    font-weight:normal;
+    margin:1px 0;
+    padding:3px 5px;
+    text-align:left;
+}
+
+.ui-autocomplete .ui-autocomplete-panel .ui-autocomplete-table {
+    border-collapse:collapse;
+    width:100%;
+}
+
+.ui-autocomplete .ui-autocomplete-panel .ui-autocomplete-table td {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #009ceb;
+    padding:4px 10px 4px 10px;
+}
+
+

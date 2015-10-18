@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+        <ui:composition>
+
+            <aside class="main-sidebar">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <!-- Sidebar user panel -->
+                    <div class="user-panel">
+                        <div class="pull-left image">
+                            <img src="#{facesContext.externalContext.requestContextPath}/resources/dist/img/user.png" class="img-circle" alt="User Image" />
+                        </div>
+                        <div class="pull-left info">
+                            <p>#{principalControle.usuarioLogado.nome}</p>
+
+                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                        </div>
+                    </div>
+                    <!-- search form -->
+                    <form action="#" method="get" class="sidebar-form">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="#{texto.lateralPesquisar}"/>
+                            <span class="input-group-btn">
+                                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                            </span>
+                        </div>
+                    </form>
+                    <!-- /.search form -->
+                    <!-- sidebar menu: : style can be found in sidebar.less -->
+                    <h:form id="lateral">
+                        <ul class="sidebar-menu">
+                            <li class="header">#{texto.lateralPrincipal}</li>
+                            <li><h:commandLink action="#{linksControle.showPage()}"><f:ajax execute="@this"/><f:param name="pageId" value="home/estatisticas" /><i class="fa fa-pie-chart"></i> #{texto.lateralEstatiscas}</h:commandLink></li>
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-files-o"></i>
+                                    <span>#{texto.lateralCadastros}</span>
+                                    <span class="label label-primary pull-right"><h:outputText value="#{linksControle.quantCadastro}"/></span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <ui:repeat value="#{linksControle.linksCadastro}" var="item">
+                                        <li><h:commandLink action="#{linksControle.showPage()}"><f:ajax execute="@this"/><f:param name="pageId" value="#{item.link}" /><i class="fa fa-circle-o"></i> #{item.nome}</h:commandLink></li>
+                                    </ui:repeat>
+                                </ul>
+                            </li>
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-flag"></i>
+                                    <span>#{texto.lateralReservar}</span>
+                                    <span class="label label-primary pull-right"><h:outputText value="#{linksControle.quantResevar}"/></span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <ui:repeat value="#{linksControle.linksResevar}" var="item">
+                                        <li><h:commandLink action="#{linksControle.showPage()}"><f:ajax execute="@this"/><f:param name="pageId" value="#{item.link}" /><i class="fa fa-circle-o"></i> #{item.nome}</h:commandLink></li>
+                                    </ui:repeat>
+                                </ul>
+                            </li>
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="fa fa-dollar"></i>
+                                    <span>#{texto.lateralFinanceiro}</span>
+                                    <span class="label label-primary pull-right"><h:outputText value="#{linksControle.quantFinanceiro}"/></span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <ui:repeat value="#{linksControle.linksFinanceiro}" var="item">
+                                        <li><h:commandLink action="#{linksControle.showPage()}"><f:ajax execute="@this"/><f:param name="pageId" value="#{item.link}" /><i class="fa fa-circle-o"></i> #{item.nome}</h:commandLink></li>
+                                    </ui:repeat>
+                                </ul>
+                            </li>  
+                            <li><a href="#"><i class="fa fa-truck"></i> #{texto.lateralMarcarMudança}</a></li>
+                            <li><a href="#"><i class="fa fa-info"></i> #{texto.lateralInformacoes}</a></li>                         
+                        </ul>
+                    </h:form>
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+
+        </ui:composition>
+    </h:body>
+</html>

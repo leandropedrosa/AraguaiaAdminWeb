@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="../template/common/templateLogin.xhtml">
+            <ui:define name="body" >
+                <h:form>                    
+                    <div class="login-box primary">
+                        <div class="login-logo">
+                            <h1>
+                                <img src="#{facesContext.externalContext.requestContextPath}/resources/dist/img/logo.png" class="img-rounded"/>
+                            </h1>
+                        </div><!-- /.login-logo -->
+                        <div class="login-box-body">  
+                           <!-- <h:messages showDetail="false" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>  -->
+                            <p class="login-box-msg">#{texto.loginDetalhes}</p>
+                            <div class="form-group has-feedback">
+                                <p:inputMask id="loginCpf" class="form-control input-mask-cpf" value="#{loginControle.visao.usuario.cpf}" required="true" requiredMessage="Informe o login" pt:placeholder="CPF" mask="999.999.999-99"/>
+                                <span class="fa fa-user form-control-feedback"/>
+                                <p:message for="loginCpf" />
+                            </div>
+                            <div class="form-group has-feedback">
+                                <h:inputSecret id="loginPassword" value="#{loginControle.visao.usuario.senha}" required="true" requiredMessage="Informe a senha" class="form-control" pt:placeholder="#{texto.loginSuaSenha}"/>  
+                                <span class="fa fa-lock form-control-feedback"/>
+                                <p:message for="loginPassword" />
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h:commandButton value="#{texto.loginLogar}" action="#{loginControle.doLogar()}" class="btn btn-primary" />  
+                                </div><!-- /.col -->
+                            </div>
+                            <div class="social-auth-links text-left">
+                                <p>- #{texto.loginAcesseTambem} -</p>
+                                <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> #{texto.loginFacebook}</a>
+                                <a href="#" class="btn btn-block btn-social btn-google-plus btn-flat"><i class="fa fa-google-plus"></i> #{texto.loginGoogleMais}</a>
+                            </div><!-- /.social-auth-links -->
+                            <div class="box-footer">
+                                <h:commandLink class="btn btn-info btn-xs pull-left" value="#{texto.loginEsqueciMinhaSenha}" action="#{linksControle.showPage()}">
+                                    <f:ajax execute="@this"/>
+                                    <f:param name="pageId" value="login/novaSenha" />
+                                </h:commandLink>   
+                                <h:commandLink class="btn btn-warning btn-xs pull-right" value="#{texto.loginQueroCadastrar}" action="#{linksControle.showPage()}">
+                                    <f:ajax execute="@this"/>
+                                    <f:param name="pageId" value="login/registrar" />
+                                </h:commandLink> 
+                            </div>
+                        </div><!-- /.login-box-body -->
+                    </div><!-- /.login-box -->
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

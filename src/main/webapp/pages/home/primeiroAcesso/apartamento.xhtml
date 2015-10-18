@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formApartamento">   
+                <h:commandLink class="btn btn-block btn-social btn-danger" immediate="true" action="#{primeiroAcessoControle.doAvancar()}" rendered="#{!empty  primeiroAcessoControle.visao.todosApartamentos}">
+                    <f:param name="etapasId" value="garagem" />
+                    <i class="fa fa-arrow-right"></i> Clique aqui para avançar
+                </h:commandLink>
+                <div class="box-body">                
+                    <div class="form-group">
+                        <label for="apartamento">Informe o Apartamento</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                            <h:selectOneMenu id="apartamento" value="#{primeiroAcessoControle.visao.apartamento.numero}" required="true" requiredMessage="Campo obrigatório" class="form-control" >
+                                <f:selectItem itemLabel="Selecione o Numero" itemValue="" />
+                                <f:selectItems value="#{primeiroAcessoControle.visao.listaApartamentos}" />
+                            </h:selectOneMenu>
+                        </div>    
+                        <h:messages class="fa fa-arrow-up" for="apartamento" showDetail="false" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>  
+                    </div>    
+                    <div class="form-group">
+                        <label for="quartos">Número de quartos:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-list-ol"></i></span>
+                            <h:inputText id="quartos" value="#{primeiroAcessoControle.visao.apartamento.quartos}" class="form-control input-mask-int1"  required="true" requiredMessage="Campo obrigatório" pt:placeholder="Número de quartos"/>                            
+                        </div>
+                        <h:messages class="fa fa-arrow-up" for="quartos" showDetail="false" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>  
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label>
+                                <span class="lbl"> Possui animal de estimação? </span>
+                                <h:selectBooleanCheckbox value="#{primeiroAcessoControle.visao.animais}" class="checkbox"/>
+                            </label>
+                        </div>
+                        <div class="input-group">
+                            <label>
+                                <span class="lbl"> Possui ar condicionado? </span>
+                                <h:selectBooleanCheckbox value="#{primeiroAcessoControle.visao.arCondicionado}" class="checkbox"/>
+
+                            </label>
+                        </div>
+                        <div class="input-group">
+                            <label>
+                                <span class="lbl"> Possui tv a cabo? </span>
+                                <h:selectBooleanCheckbox value="#{primeiroAcessoControle.visao.tvCabo}" class="checkbox"/>                            
+                            </label>
+                        </div>
+                        <div class="input-group">
+                            <label>
+                                <span class="lbl"> Possui internet? </span>
+                                <h:selectBooleanCheckbox value="#{primeiroAcessoControle.visao.internet}" class="checkbox"/>                            
+                            </label>
+                        </div>
+                        <div class="input-group">
+                            <label>
+                                <span class="lbl"> Possui bicicleta? </span>
+                                <h:selectBooleanCheckbox value="#{primeiroAcessoControle.visao.bicicleta}" class="checkbox"/>                            
+                            </label>
+                        </div>
+                    </div>                                              
+                    <div id="cadastroDiv" class="panel box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">
+                                Imobiliária?
+                            </h3>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="imob">Nome Imobiliária:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-suitcase"></i></span>
+                                <h:inputText id="imob" class="form-control" value="#{primeiroAcessoControle.visao.imobiliaria.nomeImobiliaria}" pt:placeholder="Nome da imobiliária"/>
+                            </div>                                            
+                        </div>
+                        <div class="form-group">
+                            <label for="fone">Telefone Imobiliária:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                <h:inputText id="fone" class="form-control input-mask-phone" value="#{primeiroAcessoControle.visao.imobiliaria.telefoneImobiliaria}" pt:placeholder="Telefone imobiliária"/>
+                            </div>                                            
+                        </div>
+                    </div>
+
+                    <div id="cadastroDiv" class="panel box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">
+                                Diarista?
+                            </h3>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="diaristaNome">Nome da diarista:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-bitbucket"></i></span>
+                                <h:inputText id="diaristaNome" value="#{primeiroAcessoControle.visao.diarista.nomeDiarista}" class="form-control" pt:placeholder="Nome da diarista"/>
+                            </div>                                            
+                        </div>
+                        <div class="form-group">
+                            <label for="diaristaFone">Telefone diarista:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                <h:inputText id="diaristaFone" value="#{primeiroAcessoControle.visao.diarista.telefoneDiarista}" class="form-control input-mask-phone" pt:placeholder="Telefone diarista"/>
+                            </div>                                            
+                        </div>
+                    </div>
+
+                    <div id="cadastroDiv" class="panel box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">
+                                Está em Aluguel ou Venda?
+                            </h3>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tipoNegociacao">Tipo</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-money"></i></span>
+                                <h:selectOneMenu id="tipoNegociacao" value="#{primeiroAcessoControle.visao.tipoNegociacaoSelecionada}" immediate="true" class="form-control" >
+                                    <f:selectItem itemLabel="Qual tipo de negociação?" itemValue="" />
+                                    <f:selectItems value="#{primeiroAcessoControle.visao.tipoNegociacao}" />
+                                    <f:ajax event="change" execute="@this" render="publicar valorAluguel valorVenda" />
+                                </h:selectOneMenu>
+                            </div>                                            
+                        </div>
+                        <div class="form-group">
+                            <label for="valorAluguel">Valor pretendido Aluguel:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">R$</span>
+                                <h:inputText id="valorAluguel" disabled="#{(primeiroAcessoControle.visao.tipoNegociacaoSelecionada eq '' or primeiroAcessoControle.visao.tipoNegociacaoSelecionada eq null) or primeiroAcessoControle.visao.tipoNegociacaoSelecionada eq 'Venda'}" value="#{primeiroAcessoControle.visao.valorAluguel}" class="form-control" pt:placeholder="Valor aluguel">
+                                </h:inputText>
+                            </div>                                            
+                        </div>
+                        <div class="form-group">
+                            <label for="valorVenda">Valor pretendido Venda:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">R$</span>
+                                <h:inputText id="valorVenda" disabled="#{(primeiroAcessoControle.visao.tipoNegociacaoSelecionada eq '' or primeiroAcessoControle.visao.tipoNegociacaoSelecionada eq null) or primeiroAcessoControle.visao.tipoNegociacaoSelecionada eq 'Aluguel'}" value="#{primeiroAcessoControle.visao.valorVenda}" class="form-control" pt:placeholder="Valor venda">
+                                </h:inputText>
+                            </div>                                            
+                        </div>
+                        <div class="form-group">
+                            <label for="publicar">Deseja divulgar no portal?</label>
+                            <div class="input-group">
+                                <h:selectBooleanCheckbox id="publicar" class="minimal" value="#{primeiroAcessoControle.visao.publicar}" disabled="#{primeiroAcessoControle.visao.tipoNegociacaoSelecionada eq '' or primeiroAcessoControle.visao.tipoNegociacaoSelecionada eq null}" />                        
+                            </div>                                            
+                        </div>
+                    </div>
+                </div>
+                <div class='timeline-footer'>
+                    <div class="col-md-3">
+                        <h:commandLink class="btn btn-block btn-social btn-dropbox" action="#{primeiroAcessoControle.doIncluirApartamento()}">
+                            <i class="fa fa-arrow-right"></i> Clique aqui para incluir
+                        </h:commandLink>
+                    </div>
+                    <div class="col-md-9">
+                        <h:dataTable id="todosTabela" value="#{primeiroAcessoControle.visao.todosApartamentos}" var="ap" class="table table-bordered table-striped">
+
+                            <h:column>
+                                <f:facet name="header">Número</f:facet>
+                                    #{ap.numero}
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Quartos</f:facet>
+                                    #{ap.quartos}
+                            </h:column>
+
+                            <h:column class="align-center">
+                                <f:facet name="header">Excluir</f:facet>
+                                <h:commandLink id="excluirSelecionado" action="#{primeiroAcessoControle.doExcluirApartamento()}" class="label label-danger" >
+                                    <f:param name="excluirAp" value="#{ap.numero}" />
+                                    <i class="fa fa-trash"></i>
+                                    <f:ajax execute="@this" render="@form"/>
+                                </h:commandLink>                                    
+                            </h:column>
+
+                        </h:dataTable>
+                    </div>
+                </div>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>
+

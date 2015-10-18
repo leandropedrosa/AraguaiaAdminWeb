@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <div class="box-body">
+                <div class="form-group">
+                    <h:selectOneMenu id="filtros" value="#{usuarioControle.visao.valorSelecionado}" immediate="true" class="form-control" >
+                        <f:selectItem itemLabel="Filtros" itemValue="" />
+                        <f:selectItems value="#{usuarioControle.visao.campos}" />
+                        <f:ajax event="change" execute="@this" render="campoPesquisa" listener="#{usuarioControle.fireSelection}"/>
+                    </h:selectOneMenu>
+                    <h:inputText id="campoPesquisa" disabled="#{usuarioControle.visao.valorSelecionado eq '' or usuarioControle.visao.valorSelecionado eq null}" class="form-control" value="#{usuarioControle.visao.valorPesquisa}" pt:placeholder="Digite para pesquisar">
+                        <f:ajax event="keyup" listener="#{usuarioControle.pesquisar()}" render="@form" execute="@this"/>
+                    </h:inputText>                        
+                </div>               
+                <table id="todosTabela" class="table table-bordered table-striped paginacao">
+                    <thead>
+                        <tr>
+                            <th><h:outputLabel value="CPF" /></th>
+                            <th><h:outputLabel value="Nome" /></th>
+                            <th><h:outputLabel value="Situação" /></th>
+                            <th><h:outputLabel value="Ações" /></th>
+                        </tr>
+                    </thead>
+                    <tbody>                        
+                        <ui:repeat var="user" value="#{usuarioControle.todosUsuarios}" varStatus="rowStatus">                            
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="#{user.cpf}"></h:outputLabel>
+                                </td>
+
+                                <td>
+                                    <h:outputLabel value="#{user.nome}"></h:outputLabel>
+                                </td>
+
+                                <td>
+                                    <h:outputLabel value="#{user.situacao}"></h:outputLabel>
+                                </td>
+
+                                <td>
+                                    <h:commandLink id="editarSelecionado" action="#{usuarioControle.editar()}" onclick="irParaCadastro();" class="label label-primary">
+                                        <f:param name="editar" value="#{user.idUsuario}" />
+                                        <i class="fa fa-edit"></i>
+                                        <f:ajax execute="@this" render=":formCadastros"/>
+                                    </h:commandLink>
+                                    <h:commandLink id="excluirSelecionado" action="#{usuarioControle.excluir()}" class="label label-danger" >
+                                        <f:param name="excluir" value="#{user.idUsuario}" />
+                                        <i class="fa fa-trash"></i>
+                                        <f:ajax execute="@this" render="@form"/>
+                                    </h:commandLink>  
+                                </td>
+                            </tr>                            
+                        </ui:repeat>                       
+                    </tbody>
+                </table>
+            </div>
+        </ui:composition>
+    </h:body>
+</html>
+

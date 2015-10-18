@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>        
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <div class="box-body">      
+                <c:if test="${titularControle.usuarioAdmin}">
+                    <div class="form-group">
+                        <label for="usuario">Informe o CPF</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            <h:selectOneMenu id="usuario" value="#{titularControle.visao.titular.usuario}" disabled="#{!titularControle.usuarioAdmin}" required="true" requiredMessage="Informe o CPF" converter="usuarioConverter" class="form-control" >
+                                <f:selectItem itemLabel="Selecione o CPF" itemValue="" />
+                                <f:selectItems itemLabel="#{usuario.cpf}" itemValue="#{usuario}" value="#{titularControle.todosUsuarios}" var="usuario" />
+                                <f:ajax event="change" execute="@this" listener="#{titularControle.selecionarUsuario}" render="tipoTitular tipoTitular" />
+                            </h:selectOneMenu>
+                        </div>               
+                        <p:message for="usuario" />
+                    </div>
+                </c:if>
+                <div class="form-group">
+                    <label for="nome">Nome completo:</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                        <h:inputText id="nome" class="form-control" value="#{titularControle.visao.titular.nome}" required="true" pt:placeholder="Nome">
+                            <f:ajax event="keyup" render="tipoTitular"/>
+                        </h:inputText>
+                        <p:message for="nome" />
+                    </div>                                            
+                </div>
+                <div class="form-group">
+                    <label for="tipoTitular">Tipo do titular:</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-list"></i></span>
+                        <h:selectOneMenu disabled="#{titularControle.visao.titular.nome eq null or titularControle.visao.titular.nome eq ''}" id="tipoTitular" class="form-control" value="#{titularControle.visao.titular.tipo}" required="true" requiredMessage="Informe o tipo de titular">
+                            <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+                            <f:selectItem itemLabel="Prorpietário" itemValue="P" />
+                            <f:selectItem itemLabel="Inquilino" itemValue="I" />            
+                        </h:selectOneMenu>
+                        <p:message for="tipoTitular" />
+                    </div>                                            
+                </div>
+                <div class="form-group">
+                    <label for="rg">RG:</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                        <h:inputText id="rg" class="form-control" value="#{titularControle.visao.titular.rg}" required="true" pt:placeholder="RG"/>
+                        <p:message for="rg" />
+                    </div>                                            
+                </div>
+                <div class="form-group">
+                    <label for="dtnascimento">Data de Nascimento:</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <h:inputText id="dtnascimento" class="form-control input-mask-date" converter="dataConverter" value="#{titularControle.visao.titular.dtNascimento}" required="true" pt:placeholder="Data de Nascimento"/>                        
+                    </div>                                            
+                    <p:message for="dtnascimento" />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                        <h:inputText id="email" class="form-control" value="#{titularControle.visao.titular.email}" required="true" pt:placeholder="Email"/>
+                    </div>   
+                    <p:message for="email" />
+                </div>
+            </div><!-- /.box-body -->
+            <div class="box-header">
+                <h3 class="box-title">Telefones</h3>
+            </div>
+            <div class="box-body"> 
+                <div class="form-group">
+                    <label for="telRes">Telefone Residencial:</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                        <h:inputText id="telRes" class="form-control input-mask-phone" value="#{titularControle.visao.telefoneResidencial.numero}" required="true" pt:placeholder="Informe o número"/>                        
+                    </div>                 
+                    <p:message for="telRes" />
+                </div>
+                <div class="form-group">
+                    <label for="telCel">Telefone Celular</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                        <h:inputText id="telCel" class="form-control input-mask-phone" value="#{titularControle.visao.telefoneCelular.numero}" pt:placeholder="Informe o número"/>
+                    </div>                                            
+                </div>
+                <div class="form-group">
+                    <label for="telCom">Telefone Comercial</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                        <h:inputText id="telCom" class="form-control input-mask-phone" value="#{titularControle.visao.telefoneComercial.numero}" pt:placeholder="Informe o número"/>
+                    </div>                                            
+                </div>
+                <div class="form-group">
+                    <label for="telEmer">Telefone de emergência</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                        <h:inputText id="telEmer" class="form-control input-mask-phone" value="#{titularControle.visao.telefoneEmergencia.numero}" pt:placeholder="Informe o número"/>
+                    </div>                                            
+                </div>
+                <div class="form-group">
+                    <label for="telEmer2">Telefone de emergência 2</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                        <h:inputText id="telEmer2" class="form-control input-mask-phone" value="#{titularControle.visao.telefoneEmergencia2.numero}" pt:placeholder="Informe o número"/>
+                    </div>                                            
+                </div>
+            </div>
+
+            <div class="box-footer">
+                <div class="col-md-3">
+                    <h:commandLink actionListener="#{titularControle.cancelar()}" class="btn btn-block btn-social btn-google-plus">
+                        <i class="fa fa-bitbucket"></i> Cancelar
+                        <f:ajax execute="@this" render="@form"/>
+                    </h:commandLink>
+                </div>    
+                <div class="col-md-3">
+                    <h:commandLink actionListener="#{titularControle.salvar()}" class="btn btn-block btn-social btn-dropbox">
+                        <i class="fa fa-save"></i> Salvar
+                        <f:ajax execute="@form" render="@form :formLista:todosTabela"/>
+                    </h:commandLink>   
+                </div>
+            </div>                
+        </ui:composition>
+    </h:body>
+</html>
+

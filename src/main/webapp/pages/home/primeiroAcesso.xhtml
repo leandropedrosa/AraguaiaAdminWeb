@@ -1,0 +1,227 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="../template/common/commonLayout.xhtml">
+            <ui:define name="headerContent">
+                <h1>
+                    Primeiro Acesso
+                    <small>Cadastro inicial</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li class="active">Primeiro Acesso</li>
+                </ol>
+            </ui:define>
+            <ui:define name="mainContent">  
+                <section class="content">
+                    <!-- row -->
+                    <div class="row">
+                        <h:form id="formLinks"> 
+                            <div class="col-lg-2 col-xs-4 ">
+                                <!-- small box -->
+                                <div class="${primeiroAcessoControle.visao.etapas == 1 ? 'small-box bg-red':'small-box bg-green'}">
+                                    <div class="inner">
+                                        <h2>Passo 1</h2>
+                                        <p>Titular</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-android-contact"></i>
+                                    </div>
+                                    <h:commandLink class="small-box-footer" action="#{primeiroAcessoControle.doDirecionar()}"><f:param name="etapasId" value="titular" /> Clique aqui <i class="fa fa-arrow-circle-right"></i></h:commandLink>
+                                </div>
+                            </div>
+                            <c:if test="${primeiroAcessoControle.visao.etapas > 1}">
+                                <div class="col-lg-2 col-xs-4">
+                                    <!-- small box -->
+                                    <div class="${primeiroAcessoControle.visao.etapas == 2 ? 'small-box bg-red':'small-box bg-green'}">
+                                        <div class="inner">
+                                            <h2>Passo 2</h2>
+                                            <p>Dependente(s)</p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion ion-android-contacts"></i>
+                                        </div>
+                                        <h:commandLink class="small-box-footer" action="#{primeiroAcessoControle.doDirecionar()}"><f:param name="etapasId" value="dependentes" /> Clique aqui <i class="fa fa-arrow-circle-right"></i></h:commandLink>                                    
+                                    </div>
+                                </div>
+                            </c:if>
+                            <c:if test="${primeiroAcessoControle.visao.etapas > 2}">
+                                <div class="col-lg-2 col-xs-4">
+                                    <!-- small box -->
+                                    <div class="${primeiroAcessoControle.visao.etapas == 3 ? 'small-box bg-red':'small-box bg-green'}">
+                                        <div class="inner">
+                                            <h2>Passo 3</h2>
+                                            <p>Apartamento(s)</p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion ion-home"></i>
+                                        </div>
+                                        <h:commandLink class="small-box-footer" action="#{primeiroAcessoControle.doDirecionar()}"><f:param name="etapasId" value="apartamento" /> Clique aqui <i class="fa fa-arrow-circle-right"></i></h:commandLink>                                    
+                                    </div>
+                                </div>
+                            </c:if>
+                            <c:if test="${primeiroAcessoControle.visao.etapas > 3}">
+                                <div class="col-lg-2 col-xs-4">
+                                    <!-- small box -->
+                                    <div class="${primeiroAcessoControle.visao.etapas == 4 ? 'small-box bg-red':'small-box bg-green'}">
+                                        <div class="inner">
+                                            <h2>Passo 4</h2>
+                                            <p>Garagem(ns)</p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion ion-qr-scanner"></i>
+                                        </div>
+                                        <h:commandLink class="small-box-footer" action="#{primeiroAcessoControle.doDirecionar()}"><f:param name="etapasId" value="garagem" /> Clique aqui <i class="fa fa-arrow-circle-right"></i></h:commandLink>                                    
+                                    </div>
+                                </div>
+                            </c:if>
+                            <c:if test="${primeiroAcessoControle.visao.etapas > 4}">
+                                <div class="col-lg-2 col-xs-4">
+                                    <!-- small box -->
+                                    <div class="${primeiroAcessoControle.visao.etapas == 5 ? 'small-box bg-red':'small-box bg-green'}">
+                                        <div class="inner">
+                                            <h2>Passo 5</h2>
+                                            <p>Veículo(s)</p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion ion-model-s"></i>
+                                        </div>
+                                        <h:commandLink class="small-box-footer" action="#{primeiroAcessoControle.doDirecionar()}"><f:param name="etapasId" value="veiculo" /> Clique aqui <i class="fa fa-arrow-circle-right"></i></h:commandLink>                                    
+                                    </div>
+                                </div>  
+                            </c:if>    
+                        </h:form>  
+
+                        <!-- CONTEUDO -->                        
+
+                        <div class="col-md-12">
+                            <!-- The time line -->
+                            <ul class="timeline">
+                                <!-- timeline time label -->
+                                <c:if test="${primeiroAcessoControle.visao.isCadastroTitular()}">
+                                    <li class="time-label">
+                                        <span class="bg-teal">
+                                            <a name="Titular">Titular</a> 
+                                        </span>
+                                    </li>
+                                    <!-- /.timeline-label -->
+                                    <!-- timeline item -->
+                                    <li>
+                                        <i class="fa fa-user-plus bg-aqua"></i>
+                                        <div class="timeline-item">
+                                            <span class="time"> Cadastro de Titular</span>                                            
+                                            <h3 class="timeline-header">Dados do titular:</h3>
+                                            <ui:fragment>                                                
+                                                <ui:include src="/pages/home/primeiroAcesso/titular.xhtml" />
+                                            </ui:fragment>
+                                        </div>
+                                    </li>  
+                                </c:if>
+                                <c:if test="#{primeiroAcessoControle.visao.isCadastroDependentes()}">
+                                    <li class="time-label">
+                                        <span class="bg-teal">
+                                            <a name="Dependente">Dependente(s)</a>                                             
+                                        </span>
+                                    </li>
+                                    <!-- /.timeline-label -->
+                                    <!-- timeline item -->
+                                    <li>
+                                        <i class="fa fa-users bg-aqua"></i>
+                                        <div class="timeline-item">
+                                            <span class="time"> Cadastro de Dependete</span>
+                                            <h3 class="timeline-header">Dados do(s) dependete(s)</h3>                                            
+                                            <ui:fragment>                                                
+                                                <ui:include src="/pages/home/primeiroAcesso/dependente.xhtml" />
+                                            </ui:fragment>
+                                        </div>
+                                    </li> 
+                                </c:if>
+                                <c:if test="#{primeiroAcessoControle.visao.isCadastroApartamento()}">
+                                    <li class="time-label">
+                                        <span class="bg-teal">
+                                            <a name="Apartamento">Apartamento(s)</a>                                               
+                                        </span>
+                                    </li>
+                                    <!-- /.timeline-label -->
+                                    <!-- timeline item -->
+                                    <li>
+                                        <i class="fa fa-home bg-aqua"></i>
+                                        <div class="timeline-item">
+                                            <span class="time"> Cadastro de Apartamento</span>
+                                            <h3 class="timeline-header">Dados do(s) apartamento(s)</h3>                                                
+                                            <ui:fragment>                                                
+                                                <ui:include src="/pages/home/primeiroAcesso/apartamento.xhtml" />
+                                            </ui:fragment>
+                                        </div>
+                                    </li>    
+                                </c:if>
+                                <c:if test="#{primeiroAcessoControle.visao.isCadastroGaragem()}">
+                                    <li class="time-label">
+                                        <span class="bg-teal">
+                                            <a name="Garagem">Garagem(s)</a>                                              
+                                        </span>
+                                    </li>
+                                    <!-- /.timeline-label -->
+                                    <!-- timeline item -->
+                                    <li>
+                                        <i class="fa fa-road bg-aqua"></i>
+                                        <div class="timeline-item">
+                                            <span class="time"> Cadastro de Garagem</span>
+                                            <h3 class="timeline-header">Dados da garagem</h3>                                               
+                                            <ui:fragment>
+                                                <ui:include src="/pages/home/primeiroAcesso/garagem.xhtml" />
+                                            </ui:fragment>
+                                        </div>
+                                    </li> 
+                                </c:if>
+                                <c:if test="#{primeiroAcessoControle.visao.isCadastroVeiculo()}">
+                                    <li class="time-label">
+                                        <span class="bg-teal">
+                                            <a name="Veículo">Veículo(s)</a>                                             
+                                        </span>
+                                    </li>
+                                    <!-- /.timeline-label -->
+                                    <!-- timeline item -->
+                                    <li>
+                                        <i class="fa fa-car bg-aqua"></i>
+                                        <div class="timeline-item">
+                                            <span class="time"> Cadastro de Veículo</span>
+                                            <h3 class="timeline-header">Dados do veículo</h3>
+                                            <ui:fragment>                                                    
+                                                <ui:include src="/pages/home/primeiroAcesso/veiculo.xhtml" />
+                                            </ui:fragment>
+                                        </div>
+                                    </li> 
+                                </c:if>
+                            </ul>
+                            <c:if test="#{primeiroAcessoControle.visao.isCadastroFinalizar()}">
+                                <div class='timeline-footer align-center'>
+                                    <h:form id="formConfirmar">
+                                        <div class="col-md-3">
+                                            <h:commandLink class="btn btn-block btn-social btn-google-plus" action="#{primeiroAcessoControle.doCancelarCadastro()}">
+                                                <i class="fa fa-ban"></i> Cancelar Cadastro
+                                            </h:commandLink>   
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h:commandLink class="btn btn-block btn-social btn-dropbox" action="#{primeiroAcessoControle.doSalvarCadastro()}">
+                                                <i class="fa fa-check"></i> Confirmar Cadastro
+                                            </h:commandLink>   
+                                        </div>
+                                    </h:form>
+                                </div>
+                            </c:if>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->                
+                </section><!-- /.content -->
+            </ui:define>   
+        </ui:composition>
+    </h:body>
+</html>
+

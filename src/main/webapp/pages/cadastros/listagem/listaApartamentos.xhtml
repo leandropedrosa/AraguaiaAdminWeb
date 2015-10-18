@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <div class="box-body">
+                <c:if test="${apartamentoControle.usuarioAdmin}">
+                    <div class="form-group">
+                        <h:selectOneMenu id="filtros" value="#{apartamentoControle.visao.valorSelecionado}" valueChangeListener="#{apartamentoControle.fireSelection}" class="form-control" >
+                            <f:selectItem itemLabel="Filtros" itemValue="" />
+                            <f:selectItems value="#{apartamentoControle.visao.campos}" />
+                            <f:ajax execute="@this" event="change" immediate="true" render="campoPesquisa"/>
+                        </h:selectOneMenu>
+                        <h:inputText id="campoPesquisa" disabled="#{apartamentoControle.visao.valorSelecionado eq '' or apartamentoControle.visao.valorSelecionado eq null}" class="form-control" value="#{usuarioControle.visao.valorPesquisa}" pt:placeholder="Digite para pesquisar">
+                            <f:ajax event="keyup" listener="#{apartamentoControle.pesquisar()}" render="todosTabela" execute="@this"/>
+                        </h:inputText>                        
+                    </div>      
+                </c:if>
+                <table id="todosTabela" class="table table-bordered table-striped paginacao">
+                    <thead>
+                        <tr>
+                            <th><h:outputLabel value="Bloco" /></th>
+                            <th><h:outputLabel value="Número" /></th>
+                            <th><h:outputLabel value="Titular" /></th>
+                            <th><h:outputLabel value="Quartos" /></th>       
+                            <th><h:outputLabel value="Ações" /></th> 
+                        </tr>
+                    </thead>
+                    <tbody>                        
+                        <ui:repeat var="ap" value="#{apartamentoControle.todosApartamento}" varStatus="rowStatus">                            
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="#{ap.bloco.sigla}"></h:outputLabel>
+                                </td>
+
+                                <td>
+                                    <h:outputLabel value="#{ap.numero}"></h:outputLabel>
+                                </td>
+
+                                <td>
+                                    <h:outputLabel value="#{ap.titular.nome}"></h:outputLabel>
+                                </td>
+
+                                <td>
+                                    <h:outputLabel value="#{ap.quartos}"></h:outputLabel>
+                                </td>
+
+                                <td>
+                                    <h:commandLink id="editarSelecionado" action="#{apartamentoControle.editar()}" onclick="irParaCadastro();" class="label label-primary">
+                                        <f:param name="editar" value="#{ap.idApartamento}" />
+                                        <i class="fa fa-edit"></i>
+                                        <f:ajax execute="@this" render=":formCadastros"/>
+                                    </h:commandLink>
+                                    <h:commandLink id="excluirSelecionado" action="#{apartamentoControle.inativar()}" class="label label-danger" >
+                                        <f:param name="inativar" value="#{ap.idApartamento}" />
+                                        <i class="fa fa-trash"></i>
+                                        <f:ajax execute="@this" render="@form"/>
+                                    </h:commandLink>  
+                                </td>
+                            </tr>                            
+                        </ui:repeat>                       
+                    </tbody>
+                </table>
+
+
+            </div>
+        </ui:composition>
+    </h:body>
+</html>
+
