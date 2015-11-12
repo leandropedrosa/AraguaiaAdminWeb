@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formDependente">     
+                <h:commandLink class="btn btn-block btn-social btn-danger" immediate="true" action="#{primeiroAcessoControle.doAvancar()}" rendered="#{!empty  primeiroAcessoControle.visao.todosDependentes}">
+                    <f:param name="etapasId" value="apartamento" />
+                    <i class="fa fa-arrow-right"></i> Clique aqui para avançar
+                </h:commandLink>
+                <div class="box-body">  
+                    <div class="form-group">
+                        <h:commandLink class="btn btn-block btn-social btn-facebook" immediate="true" action="#{primeiroAcessoControle.doAvancar()}" rendered="#{empty  primeiroAcessoControle.visao.todosDependentes}">
+                            <f:param name="etapasId" value="apartamento" />
+                            <i class="fa fa-arrow-right"></i> Não possuo dependentes
+                        </h:commandLink>                                           
+                    </div>
+                    <div class="form-group">
+                        <label for="nomeDe">Nome do Dependente:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-adn"></i></span>
+                            <h:inputText id="nomeDe" class="form-control" value="#{primeiroAcessoControle.visao.dependente.nome}" required="true" requiredMessage="Campo obrigatório" pt:placeholder="Nome"/>                            
+                        </div> 
+                        <h:messages class="fa fa-arrow-up" for="nomeDe" showDetail="false" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>                              
+                    </div>
+                    <div class="form-group">
+                        <label for="parentesco">Parentesco do Titular:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                            <h:inputText id="parentesco" class="form-control" value="#{primeiroAcessoControle.visao.dependente.parentesco}" required="true" requiredMessage="Campo obrigatório" pt:placeholder="Parentesco"/>                            
+                        </div>                                            
+                        <h:messages class="fa fa-arrow-up" for="parentesco" showDetail="false" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>                              
+                    </div>
+                    <div class="form-group">
+                        <label for="cpfDe">CPF</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                            <h:inputText id="cpfDe" class="form-control input-mask-cpf" value="#{primeiroAcessoControle.visao.dependente.cpf}" pt:placeholder="CPF"/>
+                        </div>                                              
+                    </div>
+                    <div class="form-group">
+                        <label for="rgDe">RG</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                            <h:inputText id="rgDe" class="form-control" value="#{primeiroAcessoControle.visao.dependente.rg}" pt:placeholder="RG"/>
+                        </div>                                              
+                    </div>
+                    <div class="form-group">
+                        <label for="dtNascimentoDe">Data de Nascimento</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <h:inputText id="dtNascimentoDe" class="form-control input-mask-date" value="#{primeiroAcessoControle.visao.dependente.dtNascimento}" converter="dataConverter" required="true" requiredMessage="Campo obrigatório" pt:placeholder="Data de Nascimento"/>                                                       
+                        </div>                                              
+                        <h:messages class="fa fa-arrow-up" for="dtNascimentoDe" showDetail="false" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>  
+                    </div>
+                </div><!-- /.box-body -->
+                <div class='timeline-footer'>
+                    <div class="col-md-3">
+                        <h:commandLink class="btn btn-block btn-social btn-dropbox" action="#{primeiroAcessoControle.doIncluirDependente()}">
+                            <i class="fa fa-arrow-right"></i> Clique aqui para incluir
+                        </h:commandLink>  
+                    </div>
+                    <div class="col-md-9">
+                        <h:dataTable id="todosTabela" value="#{primeiroAcessoControle.visao.todosDependentes}" var="dependente" class="table table-bordered table-striped">
+
+                            <h:column>
+                                <f:facet name="header">nome</f:facet>
+                                    #{dependente.nome}
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Parentesco</f:facet>
+                                    #{dependente.parentesco}
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">RG</f:facet>
+                                    #{dependente.rg}
+                            </h:column>
+
+                            <h:column class="align-center">
+                                <f:facet name="header">Excluir</f:facet>
+                                <h:commandLink id="excluirSelecionado" action="#{primeiroAcessoControle.doExcluirDependente()}" class="label label-danger" >
+                                    <f:param name="excluirDe" value="#{dependente.rg}" />
+                                    <i class="fa fa-trash"></i>
+                                    <f:ajax execute="@this" render="@form"/>
+                                </h:commandLink>                                    
+                            </h:column>
+
+                        </h:dataTable>
+                    </div>
+                </div>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formTitular">         
+                <h:commandLink class="btn btn-block btn-social btn-danger" immediate="true" rendered="#{!empty  primeiroAcessoControle.visao.todosTitulares}" action="#{primeiroAcessoControle.doAvancar()}">
+                    <f:param name="etapasId" value="dependentes" />
+                    <i class="fa fa-arrow-right"></i> Clique aqui para avançar
+                </h:commandLink>
+                <div class="box-body">       
+                    <div class="form-group">
+                        <label for="cpfTitular">Informe o CPF</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                            <h:selectOneMenu id="usuario" value="#{primeiroAcessoControle.visao.titular.usuario}" readonly="#{primeiroAcessoControle.usuarioAdmin}" requiredMessage="Campo obrigatório" required="true" converter="usuarioConverter" class="form-control" >
+                                <f:selectItem itemLabel="Selecione o CPF" itemValue="" />
+                                <f:selectItems itemLabel="#{usuario.cpf}" itemValue="#{usuario}" value="#{primeiroAcessoControle.visao.todosUsuarios}" var="usuario" />
+                                <f:ajax event="change" execute="@this" listener="#{primeiroAcessoControle.selecionarUsuario}" render="@form" />
+                            </h:selectOneMenu>                                                                                                                                                                                                                               
+                        </div>
+                        <h:messages class="fa fa-arrow-up" for="usuario" showDetail="false" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>                          
+                    </div>
+                    <div class="form-group">
+                        <label for="nomeTitular">Nome de Usuário:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                            <h:inputText id="nomeTitular" class="form-control" value="#{primeiroAcessoControle.visao.titular.nome}" readonly="#{primeiroAcessoControle.usuarioAdmin}" requiredMessage="Campo obrigatório" required="true" pt:placeholder="Nome"/>
+                        </div>     
+                        <h:messages class="fa fa-arrow-up" for="nomeTitular" showDetail="false" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>  
+                    </div>
+                    <div class="form-group">
+                        <label for="tipoTitular">Tipo do titular:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-list"></i></span>
+                            <h:selectOneMenu id="tipoTitular" class="form-control" value="#{primeiroAcessoControle.visao.titular.tipo}" required="true" requiredMessage="Campo obrigatório">
+                                <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Prorpietário" itemValue="P" />
+                                <f:selectItem itemLabel="Inquilino" itemValue="I" />            
+                            </h:selectOneMenu>
+                        </div>
+                        <h:messages class="fa fa-arrow-up" for="tipoTitular" showDetail="false" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>                          
+                    </div>
+                    <div class="form-group">
+                        <label for="rgTi">RG:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                            <h:inputText id="rgTi" class="form-control" value="#{primeiroAcessoControle.visao.titular.rg}" required="true" requiredMessage="Campo obrigatório" pt:placeholder="RG"/>
+                        </div> 
+                        <h:messages class="fa fa-arrow-up" for="rgTi" showDetail="false" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>                          
+                    </div>
+                    <div class="form-group">
+                        <label for="dtNascimentoTi">Data de Nascimento:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <h:inputText id="dtNascimentoTi" class="form-control input-mask-date" converter="dataConverter" value="#{primeiroAcessoControle.visao.titular.dtNascimento}" required="true" requiredMessage="Campo obrigatório" pt:placeholder="Data de Nascimento"/>                        
+                        </div>    
+                        <h:messages class="fa fa-arrow-up" for="dtNascimentoTi" showDetail="false" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>                          
+                    </div>
+                    <div class="form-group">
+                        <label for="emailTi">Email</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                            <h:inputText id="emailTi" class="form-control" value="#{primeiroAcessoControle.visao.titular.email}" readonly="#{primeiroAcessoControle.usuarioAdmin}" required="true" requiredMessage="Campo obrigatório" pt:placeholder="Email"/>
+                        </div>  
+                        <h:messages class="fa fa-arrow-up" for="emailTi" showDetail="false" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>                          
+                    </div>
+                </div><!-- /.box-body -->
+
+                <div id="cadastroDiv" class="panel box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            Telefones
+                        </h3>
+                    </div>
+                    <div class="box-body"> 
+                        <div class="form-group">
+                            <label for="telRes">Telefone Residencial:</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                <h:inputText id="telRes" class="form-control input-mask-phone" value="#{primeiroAcessoControle.visao.telefoneResidencial.numero}" required="true" requiredMessage="Campo obrigatório" pt:placeholder="Informe o número"/>
+                            </div>
+                            <h:messages class="fa fa-arrow-up" for="telRes" showDetail="false" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>                              
+                        </div>
+                        <div class="form-group">
+                            <label for="telCel">Telefone Celular</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                <h:inputText id="telCel" class="form-control input-mask-phone" value="#{primeiroAcessoControle.visao.telefoneCelular.numero}" pt:placeholder="Informe o número"/>
+                            </div>                                            
+                        </div>
+                        <div class="form-group">
+                            <label for="telCom">Telefone Comercial</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                <h:inputText id="telCom" class="form-control input-mask-phone" value="#{primeiroAcessoControle.visao.telefoneComercial.numero}" pt:placeholder="Informe o número"/>
+                            </div>                                            
+                        </div>
+                        <div class="form-group">
+                            <label for="telEmer">Telefone de emergência</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                <h:inputText id="telEmer" class="form-control input-mask-phone" value="#{primeiroAcessoControle.visao.telefoneEmergencia.numero}" pt:placeholder="Informe o número"/>
+                            </div>                                            
+                        </div>
+                        <div class="form-group">
+                            <label for="telEmer2">Telefone de emergência 2</label>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                <h:inputText id="telEmer2" class="form-control input-mask-phone" value="#{primeiroAcessoControle.visao.telefoneEmergencia2.numero}" pt:placeholder="Informe o número"/>
+                            </div>                                            
+                        </div>
+                    </div>
+                </div> 
+                <div class='timeline-footer'>
+                    <div class="col-md-3">
+                        <h:commandLink class="btn btn-block btn-social btn-dropbox" action="#{primeiroAcessoControle.doIncluirTitular()}" rendered="#{empty  primeiroAcessoControle.visao.todosTitulares}">
+                            <i class="fa fa-arrow-right"></i> Clique aqui para incluir
+                        </h:commandLink>
+                    </div>
+                    <div class="col-md-9">
+                        <h:dataTable id="todosTitular" value="#{primeiroAcessoControle.visao.todosTitulares}" var="titular" class="table table-bordered table-striped">
+                            <h:column>
+                                <!-- column header -->
+                                <f:facet name="header">Nome</f:facet>
+                                <!-- row record -->
+                                <h:outputText value="#{titular.nome}"/>                                
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">RG</f:facet>
+                                <h:outputText value="#{titular.rg}"/>                                    
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Tipo</f:facet>
+                                <h:outputText value="#{titular.tipo eq 'P' ? 'Prorpietário': 'Inquilino'}"/>                                    
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Dt. Nascimento</f:facet>
+                                <h:outputText value="#{titular.dtNascimento}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>                                
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Email</f:facet>
+                                <h:outputText value="#{titular.email}"/>                                    
+                            </h:column>
+
+                            <h:column class="align-center">
+                                <f:facet name="header">Excluir</f:facet>
+                                <h:commandLink id="excluirSelecionado" action="#{primeiroAcessoControle.doExcluirTitular()}" class="label label-danger" >
+                                    <i class="fa fa-trash"></i>
+                                    <f:ajax execute="@form" render="@form"/>
+                                </h:commandLink>                                    
+                            </h:column>
+
+                        </h:dataTable>
+                    </div>
+                </div>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <div class="box-body">
+                <div class="form-group">
+                    <h:selectOneMenu id="filtros" value="#{titularControle.visao.valorSelecionado}" valueChangeListener="#{titularControle.fireSelection}" class="form-control" >
+                        <f:selectItem itemLabel="Filtros" itemValue="" />
+                        <f:selectItems value="#{titularControle.visao.campos}" />
+                        <f:ajax execute="@this" event="change" immediate="true" render="campoPesquisa"/>
+                    </h:selectOneMenu>
+                    <h:inputText id="campoPesquisa" disabled="#{titularControle.visao.valorSelecionado eq '' or titularControle.visao.valorSelecionado eq null}" class="form-control" value="#{usuarioControle.visao.valorPesquisa}" pt:placeholder="Digite para pesquisar">
+                        <f:ajax event="keyup" listener="#{titularControle.pesquisar()}" render="todosTabela" execute="@this"/>
+                    </h:inputText>                        
+                </div>
+                <h:dataTable id="todosTabela" value="#{titularControle.todosTitulares}" var="titular" class="table table-bordered table-striped">
+                    <h:column>
+                        <!-- column header -->
+                        <f:facet name="header">Nome</f:facet>
+                        <!-- row record -->
+                        #{titular.nome}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">RG</f:facet>
+                            #{titular.rg}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Tipo</f:facet>
+                            #{titular.tipo}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Dt. Nascimento</f:facet>
+                            #{titular.dtNascimento}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Email</f:facet>
+                            #{titular.email}
+                    </h:column>
+
+                    <h:column class="align-center">
+                        <f:facet name="header">Ações</f:facet>
+                        <h:commandLink id="editarSelecionado" action="#{titularControle.editar()}" onclick="irParaCadastro();" class="label label-primary">
+                            <f:param name="editar" value="#{auto.idVeiculo}" />
+                            <i class="fa fa-edit"></i>
+                            <f:ajax execute="@this" render=":formCadastros"/>
+                        </h:commandLink>
+                        <h:commandLink id="excluirSelecionado" action="#{titularControle.excluir()}" class="label label-danger" >
+                            <f:param name="excluir" value="#{auto.idVeiculo}" />
+                            <i class="fa fa-trash"></i>
+                            <f:ajax execute="@this" render="@form"/>
+                        </h:commandLink>                                    
+                    </h:column>
+
+                </h:dataTable>
+            </div>
+        </ui:composition>
+    </h:body>
+</html>
+

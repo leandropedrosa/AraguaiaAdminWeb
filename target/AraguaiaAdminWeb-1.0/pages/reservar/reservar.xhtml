@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="../template/common/commonLayout.xhtml">
+            <ui:define name="headerContent">
+                <h1>
+                    Resevar
+                    <small>Usuários do Sistema</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> Cadastros</a></li>
+                    <li class="active">Usuários</li>
+                </ol>
+            </ui:define>
+            <ui:define name="mainContent">  
+                <div class="row">
+                    <!-- left column -->
+                    <div class="col-md-6">
+                        <h:form>                            
+                            <h:panelGrid columnClasses="value">
+                                <h3 style="margin-top: 0">Editable Schedule</h3>                                
+                            </h:panelGrid>                              
+                        </h:form>
+                        <style type="text/css">
+                            .value {
+                                width: 1000px;
+                            }
+                        </style>
+                    </div><!-- /.box -->
+                </div><!-- /.box -->
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

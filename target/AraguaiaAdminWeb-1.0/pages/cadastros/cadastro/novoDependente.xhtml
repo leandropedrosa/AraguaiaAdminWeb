@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <div class="box-body">
+                <c:if test="${dependenteControle.usuarioAdmin}">
+                    <div class="form-group">
+                        <label for="reponsavel">Responsável do Dependente:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-user-plus"></i></span>                                               
+                            <h:selectOneMenu id="reponsavel" value="#{dependenteControle.visao.dependente.titular}" disabled="#{!dependenteControle.usuarioAdmin}" required="true" requiredMessage="Informe o titular" converter="titularConverter" class="form-control" >
+                                <f:selectItem itemLabel="Selecione o Titular" itemValue="" />
+                                <f:selectItems itemLabel="#{titular.nome}" itemValue="#{titular}" value="#{apartamentoControle.todosTitulares}" var="titular" />
+                                <f:ajax event="change" execute="@this" render="tipoTitular"/>
+                            </h:selectOneMenu>
+                        </div>                                            
+                    </div>  
+                </c:if>
+                <div class="form-group">
+                    <label for="nome">Nome do Dependente:</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-adn"></i></span>
+                        <h:inputText id="nome" class="form-control" value="#{dependenteControle.visao.dependente.nome}" required="true" pt:placeholder="Nome"/>                        
+                    </div>                                            
+                    <p:message for="nome" />
+                </div>
+                <div class="form-group">
+                    <label for="parentesco">Parentesco do Titular:</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                        <h:inputText id="parentesco" class="form-control" value="#{dependenteControle.visao.dependente.parentesco}" required="true" pt:placeholder="Parentesco"/>                        
+                    </div>                                            
+                    <p:message for="parentesco" />
+                </div>
+                <div class="form-group">
+                    <label for="cpf">CPF</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                        <h:inputText id="cpf" class="form-control input-mask-cpf" value="#{dependenteControle.visao.dependente.cpf}" required="true" pt:placeholder="CPF"/>                        
+                    </div>                                              
+                    <p:message for="cpf" />
+                </div>
+                <div class="form-group">
+                    <label for="rg">RG</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                        <h:inputText id="rg" class="form-control" value="#{dependenteControle.visao.dependente.rg}" required="true" pt:placeholder="RG"/>                        
+                    </div>                                              
+                    <p:message for="rg" />
+                </div>
+                <div class="form-group">
+                    <label for="dtNascimento">Data de Nascimento</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <h:inputText id="dtNascimento" class="form-control input-mask-date" value="#{dependenteControle.visao.dependente.dtNascimento}" converter="dataConverter" required="true" pt:placeholder="Data de nascimento"/>                        
+                    </div>                                              
+                    <p:message for="dtNascimento" />
+                </div>
+            </div><!-- /.box-body -->
+
+            <div class="box-footer">
+                <div class="col-md-3">
+                    <h:commandLink actionListener="#{dependenteControle.cancelar()}" class="btn btn-block btn-social btn-google-plus">
+                        <i class="fa fa-bitbucket"></i> Cancelar
+                        <f:ajax execute="@this" render="@form"/>
+                    </h:commandLink>
+                </div>    
+                <div class="col-md-3">
+                    <h:commandLink actionListener="#{dependenteControle.salvar()}" class="btn btn-block btn-social bg-green">
+                        <i class="fa fa-save"></i> Salvar
+                        <f:ajax execute="@form" render="@form :formLista:todosTabela"/>
+                    </h:commandLink>   
+                </div>
+                <div class="col-md-3">
+                    <h:commandLink actionListener="#{dependenteControle.novo()}" class="btn btn-block btn-social btn-dropbox">
+                        <i class="fa fa-save"></i> Novo
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandLink>   
+                </div>
+            </div>
+        </ui:composition>
+    </h:body>
+</html>
+

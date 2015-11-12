@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+
+    </h:head>
+
+    <h:body> 
+        <ui:composition>
+
+            <!-- JQuery DataTable plugin -->
+
+            <!-- jQuery 2.1.3 -->
+            <h:outputScript library="plugins" name="jQuery/jQuery-2.1.3.min.js"/>
+            <!-- jQuery UI 1.11.2 -->
+            <h:outputScript name="js/jquery-ui.min.js" library="dist"/> 
+            <script type="text/javascript">
+                function irParaCadastro() {
+                    var element = document.getElementById('botaoCadastro');
+                    element.click();
+                }
+                ;
+                function irParaLista() {
+                    var element = document.getElementById('botaoLista');
+                    element.click();
+                }
+                ;
+            </script>
+            <script type="text/javascript">
+                $(function() {
+                    $('.paginacao').dataTable({
+                        "bPaginate": true,
+                        "bLengthChange": true,
+                        "bFilter": false,
+                        "bSort": true,
+                        "bInfo": true,
+                        "bAutoWidth": true
+                    });
+                });
+            </script>
+
+            <!-- DATA TABES SCRIPT -->
+            <h:outputScript name="datatables/jquery.dataTables.js" library="plugins"/>
+            <h:outputScript name="datatables/dataTables.bootstrap.js" library="plugins"/>
+            <!-- FastClick -->
+            <h:outputScript name="fastclick/fastclick.min.js" library="plugins"/>
+            <!-- Bootstrap 3.3.2 JS -->
+            <h:outputScript name="js/bootstrap.min.js" library="bootstrap"/>
+            <!-- Sparkline -->
+            <h:outputScript name="sparkline/jquery.sparkline.min.js" library="plugins"/>
+            <!-- jvectormap -->
+            <h:outputScript name="jvectormap/jquery-jvectormap-1.2.2.min.js" library="plugins"/>
+            <h:outputScript name="jvectormap/jquery-jvectormap-world-mill-en.js" library="plugins"/>
+            <!-- jQuery Knob Chart -->
+            <h:outputScript name="knob/jquery.knob.js" library="plugins"/>
+            <!-- daterangepicker -->
+            <h:outputScript name="daterangepicker/daterangepicker.js" library="plugins"/>
+            <!-- datepicker -->
+            <h:outputScript name="datepicker/bootstrap-datepicker.js" library="plugins"/>
+            <!-- Bootstrap WYSIHTML5 -->
+            <h:outputScript name="bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" library="plugins"/>
+            <!-- iCheck -->
+            <h:outputScript name="iCheck/icheck.min.js" library="plugins"/>            
+
+            <h:outputScript name="slimScroll/jquery.slimscroll.min.js" library="plugins"/>
+            <!-- FastClick -->
+            <h:outputScript name="fastclick/fastclick.min.js" library="plugins"/>
+            <!-- AdminLTE App -->
+            <h:outputScript name="js/app.min.js" library="dist"/>                               
+
+            <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+            <h:outputScript name="js/pages/dashboard.js" library="dist"/>
+
+            <h:outputScript name="js/jquery.maskedinput.min.js" library="dist"/>
+            <h:outputScript name="js/outros.js" library="dist"/>
+            <!-- AdminLTE for demo purposes -->
+            <!--<h:outputScript name="js/demo.js" library="dist"/>-->
+
+            <!-- Morris.js charts -->
+            <h:outputScript name="js/raphael-min.js" library="dist"/>
+            <h:outputScript name="morris/morris.min.js" library="plugins"/>
+            <h:outputScript name="typeahead/bootstrap-typeahead.js" library="plugins"/>
+        </ui:composition>
+    </h:body>
+</html>

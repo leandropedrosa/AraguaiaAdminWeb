@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="../template/common/templateLogin.xhtml">
+            <ui:define name="body" >
+                <h:form>                    
+                    <!-- <h:messages showSummary="true" showDetail="true" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>  -->
+                    <div class="login-box">
+                        <div class="login-logo">
+                            <img src="#{facesContext.externalContext.requestContextPath}/resources/dist/img/logo.png" class="img-rounded"/>
+                        </div><!-- /.login-logo -->                                        
+                        <div class="login-box-body">    
+                           <!-- <h:messages showDetail="false" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>  -->
+                            <p class="login-box-msg">#{texto.loginDetalhes}</p>
+                            <div class="form-group">
+                                <label for="novaSenhaCpf">#{texto.novaSenhaCpfTitular}</label>
+                                <div class="input-group margin">
+                                    <p:inputMask id="novaSenhaCpf" class="form-control input-mask-cpf" value="#{usuarioControle.visao.cpfResetarSenha}" required="true" requiredMessage="Informe o cpf" pt:placeholder="CPF" mask="999.999.999-99"/>                                    
+                                    <span class="input-group-btn">
+                                        <h:commandButton value="#{texto.novaSenhaEnviar}" action="#{usuarioControle.doResetarSenha()}" class="btn btn-info btn-flat"/>
+                                    </span>                                    
+                                </div><!-- /input-group -->                                         
+                            </div>
+                            <p:message for="novaSenhaCpf" />
+                        </div><!-- /.box-body -->
+
+                        <div class="box-footer"> 
+                            <h:commandLink class="btn btn-app" action="#{linksControle.showPage()}">
+                                <i class="fa fa-mail-forward"></i> #{texto.novaSenhaVoltarLogin}                             
+                                <f:ajax execute="@this"/>
+                                <f:param name="pageId" value="login/login" />
+                            </h:commandLink> 
+                        </div>                  
+                    </div><!-- /.login-box-body -->
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

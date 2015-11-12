@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <div class="box-body">
+                <c:if test="${dependenteControle.usuarioAdmin}">
+                    <div class="form-group">
+                        <h:selectOneMenu id="filtros" value="#{dependenteControle.visao.valorSelecionado}" valueChangeListener="#{dependenteControle.fireSelection}" class="form-control" >
+                            <f:selectItem itemLabel="Filtros" itemValue="" />
+                            <f:selectItems value="#{dependenteControle.visao.campos}" />
+                            <f:ajax execute="@this" event="change" immediate="true" render="campoPesquisa"/>
+                        </h:selectOneMenu>
+                        <h:inputText id="campoPesquisa" disabled="#{dependenteControle.visao.valorSelecionado eq '' or dependenteControle.visao.valorSelecionado eq null}" class="form-control" value="#{usuarioControle.visao.valorPesquisa}" pt:placeholder="Digite para pesquisar">
+                            <f:ajax event="keyup" listener="#{dependenteControle.pesquisar()}" render="todosTabela" execute="@this"/>
+                        </h:inputText>                        
+                    </div>
+                </c:if>
+                <h:dataTable id="todosTabela" value="#{dependenteControle.todosDependentes}" var="dependente" class="table table-bordered table-striped">
+                    <h:column>
+                        <!-- column header -->
+                        <f:facet name="header">Nome do titular</f:facet>
+                        <!-- row record -->
+                        #{dependente.titular.nome}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">nome</f:facet>
+                            #{dependente.nome}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Parentesco</f:facet>
+                            #{dependente.parentesco}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">RG</f:facet>
+                            #{dependente.rg}
+                    </h:column>
+
+                    <h:column class="align-center">
+                        <f:facet name="header">Ações</f:facet>
+                        <h:commandLink id="editarSelecionado" action="#{dependenteControle.editar()}" onclick="irParaCadastro();" class="label label-primary">
+                            <f:param name="editar" value="#{dependente.idDependente}" />
+                            <i class="fa fa-edit"></i>
+                            <f:ajax execute="@this" render=":formCadastros"/>
+                        </h:commandLink>
+                        <h:commandLink id="excluirSelecionado" action="#{dependenteControle.excluir()}" class="label label-danger" >
+                            <f:param name="excluir" value="#{dependente.idDependente}" />
+                            <i class="fa fa-trash"></i>
+                            <f:ajax execute="@this" render="@form"/>
+                        </h:commandLink>                                    
+                    </h:column>
+
+                </h:dataTable>
+            </div>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <h:form id="formVeiculo">
+                <h:commandLink class="btn btn-block btn-social btn-danger" immediate="true" action="#{primeiroAcessoControle.doAvancar()}" rendered="#{!empty  primeiroAcessoControle.visao.todosVeiculos}">
+                    <f:param name="etapasId" value="finalizar" />
+                    <i class="fa fa-arrow-right"></i> Clique aqui para avançar
+                </h:commandLink>
+                <div class="box-body">  
+                    <div class="form-group">
+                            <h:commandLink class="btn btn-block btn-social btn-facebook" immediate="true" action="#{primeiroAcessoControle.doAvancar()}" rendered="#{empty  primeiroAcessoControle.visao.todosVeiculos}">
+                                <f:param name="etapasId" value="finalizar" />
+                                <i class="fa fa-arrow-right"></i> Não possuo Veiculos
+                            </h:commandLink>                                                                     
+                    </div>
+                    <div class="form-group">
+                        <label for="placa">Placa do Veículo:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-keyboard-o"></i></span>
+                            <h:inputText id="placa" class="form-control input-mask-placa" value="#{primeiroAcessoControle.visao.veiculo.placa}" required="true" requiredMessage="Campo obrigatório" pt:placeholder="Placa"/>                        
+                        </div> 
+                        <h:messages class="fa fa-arrow-up" for="placa" showDetail="false" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>  
+                    </div>
+                    <div class="form-group">
+                        <label for="modelo">Modelo do Veículo:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-truck"></i></span>
+                            <h:inputText id="modelo" class="form-control" value="#{primeiroAcessoControle.visao.veiculo.modelo}" required="true" requiredMessage="Campo obrigatório" pt:placeholder="Modelo"/>                        
+                        </div>   
+                        <h:messages class="fa fa-arrow-up" for="modelo" showDetail="false" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>  
+                    </div>
+                    <div class="form-group">
+                        <label for="tipo">Tipo</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-bars"></i></span>
+                            <h:inputText id="tipo" class="form-control" value="#{primeiroAcessoControle.visao.veiculo.tipo}" required="true" requiredMessage="Campo obrigatório" pt:placeholder="Tipo"/>                        
+                        </div>     
+                        <h:messages class="fa fa-arrow-up" for="tipo" showDetail="false" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>  
+                    </div>
+                </div><!-- /.box-body -->
+                <div class='timeline-footer'>
+                    <div class="col-md-3">
+                        <h:commandLink class="btn btn-block btn-social btn-dropbox" action="#{primeiroAcessoControle.doIncluirVeiculo()}">
+                            <i class="fa fa-arrow-right"></i> Clique aqui para incluir
+                        </h:commandLink>
+                    </div>
+                    <div class="col-md-9">
+                        <h:dataTable id="todosTabela" value="#{primeiroAcessoControle.visao.todosVeiculos}" var="auto" class="table table-bordered table-striped">
+                            <h:column>
+                                <!-- column header -->
+                                <f:facet name="header">Placa</f:facet>
+                                <!-- row record -->
+                                #{auto.placa}
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Modelo</f:facet>
+                                    #{auto.modelo}
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">Tipo</f:facet>
+                                    #{auto.tipo}
+                            </h:column>
+
+                            <h:column class="align-center">
+                                <f:facet name="header">Excluir</f:facet>
+                                <h:commandLink id="excluirSelecionado" action="#{primeiroAcessoControle.doExcluirVeiculo()}" class="label label-danger" >
+                                    <f:param name="excluirVe" value="#{auto.placa}" />
+                                    <i class="fa fa-trash"></i>
+                                    <f:ajax execute="@this" render="@form"/>
+                                </h:commandLink>                                    
+                            </h:column>
+                        </h:dataTable>
+                    </div>
+                </div>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>
+

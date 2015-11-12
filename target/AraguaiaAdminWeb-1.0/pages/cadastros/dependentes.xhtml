@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition template="../template/common/commonLayout.xhtml">
+            <ui:define name="headerContent">
+                <h1>
+                    Cadastros
+                    <small>Dependente do Titular</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> Cadastros</a></li>
+                    <li class="active">Dependente</li>
+                </ol>
+            </ui:define>
+            <ui:define name="mainContent">  
+                <div class="row">
+                    <!-- left column -->
+                    <div class="col-md-6">
+                        <div class="nav-tabs-custom">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#abaLista" data-toggle="tab">Listar</a></li>
+                                <li><a id="botaoCadastro" href="#abaCadastro" data-toggle="tab">Cadastro</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="abaLista" >
+                                    <div id="listaDiv" class="panel box box-primary">
+                                        <div class="box-header with-border">
+                                            <h4 class="box-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                                    Listar todos dependentes
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse in">
+                                            <h:form id="formLista">
+                                              <!--  <h:messages showDetail="false" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>  -->
+                                                <ui:include src="/pages/cadastros/listagem/listaDependentes.xhtml" />
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="abaCadastro" >
+                                    <div id="cadastroDiv" class="panel box box-danger">
+                                        <div class="box-header with-border">
+                                            <h4 class="box-title">
+                                                <a id="meuLink" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                                    Cadastrar novo dependente
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseTwo" class="panel-collapse collapse in">
+                                            <h:form id="formCadastros">
+                                               <!-- <h:messages showDetail="false" fatalClass="alert alert-danger alert-dismissable" errorClass="alert alert-danger alert-dismissable" infoClass="alert alert-info alert-dismissable" warnClass="alert alert-warning alert-dismissable"/>  -->
+                                                <ui:include src="/pages/cadastros/cadastro/novoDependente.xhtml" />                                                    
+                                            </h:form>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>  
+                        
+                    </div><!-- /.box -->
+                </div><!-- /.box -->
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

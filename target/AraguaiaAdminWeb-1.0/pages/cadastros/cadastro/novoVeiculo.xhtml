@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <div class="box-body">
+                <c:if test="${veiculoControle.usuarioAdmin}">
+                    <div class="form-group">
+                        <label for="reponsavel">Titular do Veículo</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                            <h:selectOneMenu id="reponsavel" value="#{veiculoControle.visao.veiculo.titular}" disabled="#{!veiculoControle.usuarioAdmin}" required="true" requiredMessage="Informe o titular" converter="titularConverter" class="form-control" >
+                                <f:selectItem itemLabel="Selecione o Titular" itemValue="" />
+                                <f:selectItems itemLabel="#{titular.nome}" itemValue="#{titular}" value="#{veiculoControle.todosTitulares}" var="titular" />
+                                <f:ajax event="change" execute="@this" render="tipoTitular"/>
+                            </h:selectOneMenu>
+                            <p:message for="reponsavel" />
+                        </div>                                            
+                    </div>     
+                </c:if>
+                <div class="form-group">
+                    <label for="placa">Placa do Veículo:</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-keyboard-o"></i></span>
+                        <h:inputText id="placa" class="form-control input-mask-placa" value="#{veiculoControle.visao.veiculo.placa}" required="true" pt:placeholder="Placa"/>
+                        <p:message for="placa" />
+                    </div>                                            
+                </div>
+                <div class="form-group">
+                    <label for="modelo">Modelo do Veículo:</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-truck"></i></span>
+                        <h:inputText id="modelo" class="form-control" value="#{veiculoControle.visao.veiculo.modelo}" required="true" pt:placeholder="Modelo"/>
+                        <p:message for="modelo" />
+                    </div>                                            
+                </div>
+                <div class="form-group">
+                    <label for="tipo">Tipo</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-bars"></i></span>
+                        <h:inputText id="tipo" class="form-control" value="#{veiculoControle.visao.veiculo.tipo}" required="true" pt:placeholder="Tipo"/>
+                        <p:message for="tipo" />
+                    </div>                                              
+                </div>
+            </div><!-- /.box-body -->
+
+            <div class="box-footer">
+                <div class="col-md-3">
+                    <h:commandLink actionListener="#{veiculoControle.cancelar()}" class="btn btn-block btn-social btn-google-plus">
+                        <i class="fa fa-bitbucket"></i> Cancelar
+                        <f:ajax execute="@this" render="@form"/>
+                    </h:commandLink>
+                </div>    
+                <div class="col-md-3">
+                    <h:commandLink actionListener="#{veiculoControle.salvar()}" class="btn btn-block btn-social bg-green">
+                        <i class="fa fa-save"></i> Salvar
+                        <f:ajax execute="@form" render="@form :formLista:todosTabela"/>
+                    </h:commandLink>   
+                </div>
+                <div class="col-md-3">
+                    <h:commandLink actionListener="#{veiculoControle.novo()}" class="btn btn-block btn-social btn-dropbox">
+                        <i class="fa fa-save"></i> Novo
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandLink>   
+                </div>
+            </div>                      
+        </ui:composition>
+    </h:body>
+</html>
+

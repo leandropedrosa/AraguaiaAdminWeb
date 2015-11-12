@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            <div class="box-body">
+                <c:if test="${garagemControle.usuarioAdmin}">
+                    <div class="form-group">
+                        <label for="reponsavel">Titular da Garagem:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                            <h:selectOneMenu id="reponsavel" value="#{garagemControle.visao.garagem.titular}" disabled="#{!garagemControle.usuarioAdmin}" required="true" requiredMessage="Informe o titular" converter="titularConverter" class="form-control" >
+                                <f:selectItem itemLabel="Selecione o Titular" itemValue="" />
+                                <f:selectItems itemLabel="#{titular.nome}" itemValue="#{titular}" value="#{garagemControle.todosTitulares}" var="titular" />
+                                <f:ajax event="change" execute="@this" render="tipoTitular"/>
+                            </h:selectOneMenu>
+                            <p:message for="reponsavel" />
+                        </div>                                            
+                    </div>  
+                </c:if>
+                <div class="form-group">
+                    <label for="numGaragem">Número da Garagem:</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                        <h:selectOneMenu id="numGaragem"  value="#{garagemControle.visao.garagem.numero}" required="true" requiredMessage="Informe o numero" class="form-control" >
+                            <f:selectItem itemLabel="Selecione o Numero" itemValue="" />
+                            <f:selectItems value="#{garagemControle.visao.listaDeNumeros}"/>
+                        </h:selectOneMenu>
+                        <p:message for="numGaragem" />
+                    </div>                                            
+                </div>               
+                <div class="form-group">
+                    <label for="apartamento">Informe o tipo de cobertura</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                        <h:selectOneMenu id="tipoCobertura" class="form-control" value="#{garagemControle.visao.garagem.cobertura.tipo}" required="true" requiredMessage="Informe o tipo de titular">
+                            <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+                            <f:selectItem itemLabel="Coberta (Abaixo da área de lazer)" itemValue="A" />
+                            <f:selectItem itemLabel="Coberta paga" itemValue="C" />            
+                            <f:selectItem itemLabel="Não coberta" itemValue="N" />   
+                        </h:selectOneMenu>
+                    </div>  
+                    <p:message for="tipoCobertura" />
+                </div>  
+            </div><!-- /.box-body -->
+
+            <div class="box-footer">
+                <div class="col-md-3">
+                    <h:commandLink actionListener="#{garagemControle.cancelar()}" class="btn btn-block btn-social btn-google-plus">
+                        <i class="fa fa-bitbucket"></i> Cancelar
+                        <f:ajax execute="@this" render="@form"/>
+                    </h:commandLink>
+                </div>    
+                <div class="col-md-3">
+                    <h:commandLink actionListener="#{garagemControle.salvar()}" class="btn btn-block btn-social bg-green">
+                        <i class="fa fa-save"></i> Salvar
+                        <f:ajax execute="@form" render="@form :formLista:todosTabela"/>
+                    </h:commandLink>   
+                </div>
+                <div class="col-md-3">
+                    <h:commandLink actionListener="#{garagemControle.novo()}" class="btn btn-block btn-social btn-dropbox">
+                        <i class="fa fa-save"></i> Novo
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandLink>   
+                </div>
+            </div>           
+        </ui:composition>
+    </h:body>
+</html>
+
